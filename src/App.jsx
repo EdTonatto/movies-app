@@ -11,9 +11,7 @@ const App = () => {
 
   const getMoviesRequest = async (searchValue) => {
     const url = `${process.env.MOVIES_APP_OMBD_API_URL}?s=${searchValue}&apikey=${process.env.MOVIES_APP_OMDB_API_KEY}`;
-    console.log('a')
-    console.log(searchValue)
-    console.log(process.env.MOVIES_APP_OMBD_API_URL)
+
     const response = await (await fetch(url)).json();
 
     if(response.Search)
