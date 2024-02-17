@@ -29,19 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create .env with Github Secrets
-        env:
-          MOVIES_APP_OMBD_API_URL: ${{ secrets.MOVIES_APP_OMBD_API_URL }}
-          MOVIES_APP_OMDB_API_KEY: ${{ secrets.MOVIES_APP_OMDB_API_KEY }}
         run: |
           touch .env
-          echo MOVIES_APP_OMBD_API_URL=$MOVIES_APP_OMBD_API_URL >> .env
-          echo MOVIES_APP_OMDB_API_KEY=$MOVIES_APP_OMDB_API_KEY >> .env
+          echo MOVIES_APP_OMBD_API_URL=${{ secrets.MOVIES_APP_OMBD_API_URL }} >> .env
+          echo MOVIES_APP_OMDB_API_KEY=${{ secrets.MOVIES_APP_OMDB_API_KEY }} >> .env
           echo "cat .env"
           cat .env
-          echo "ls -a ."
-          ls -a .
-          echo "ls -a ${{ github.workspace }}"
-          ls -a ${{ github.workspace }}
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up Node
