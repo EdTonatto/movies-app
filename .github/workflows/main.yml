@@ -28,34 +28,45 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Create .env with Github Secrets
-        run: |
-          touch .env
-          echo MOVIES_APP_OMBD_API_URL=${{ secrets.MOVIES_APP_OMBD_API_URL }} >> .env
-          echo MOVIES_APP_OMDB_API_KEY=${{ secrets.MOVIES_APP_OMDB_API_KEY }} >> .env
-          echo "cat .env"
-          cat .env
+      - name: Checkout
         env:
           MOVIES_APP_OMBD_API_URL: ${{ secrets.MOVIES_APP_OMBD_API_URL }}
           MOVIES_APP_OMDB_API_KEY: ${{ secrets.MOVIES_APP_OMDB_API_KEY }}
-      - name: Checkout
         uses: actions/checkout@v3
       - name: Set up Node
+        env:
+          MOVIES_APP_OMBD_API_URL: ${{ secrets.MOVIES_APP_OMBD_API_URL }}
+          MOVIES_APP_OMDB_API_KEY: ${{ secrets.MOVIES_APP_OMDB_API_KEY }}
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: 'npm'
       - name: Install dependencies
+        env:
+          MOVIES_APP_OMBD_API_URL: ${{ secrets.MOVIES_APP_OMBD_API_URL }}
+          MOVIES_APP_OMDB_API_KEY: ${{ secrets.MOVIES_APP_OMDB_API_KEY }}
         run: npm install
       - name: Build
+        env:
+          MOVIES_APP_OMBD_API_URL: ${{ secrets.MOVIES_APP_OMBD_API_URL }}
+          MOVIES_APP_OMDB_API_KEY: ${{ secrets.MOVIES_APP_OMDB_API_KEY }}
         run: npm run build-vite
       - name: Setup Pages
+        env:
+          MOVIES_APP_OMBD_API_URL: ${{ secrets.MOVIES_APP_OMBD_API_URL }}
+          MOVIES_APP_OMDB_API_KEY: ${{ secrets.MOVIES_APP_OMDB_API_KEY }}
         uses: actions/configure-pages@v3
       - name: Upload artifact
+        env:
+          MOVIES_APP_OMBD_API_URL: ${{ secrets.MOVIES_APP_OMBD_API_URL }}
+          MOVIES_APP_OMDB_API_KEY: ${{ secrets.MOVIES_APP_OMDB_API_KEY }}
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload dist repository
           path: './dist'
       - name: Deploy to GitHub Pages
+        env:
+          MOVIES_APP_OMBD_API_URL: ${{ secrets.MOVIES_APP_OMBD_API_URL }}
+          MOVIES_APP_OMDB_API_KEY: ${{ secrets.MOVIES_APP_OMDB_API_KEY }}
         id: deployment
         uses: actions/deploy-pages@v1
